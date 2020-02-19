@@ -2,7 +2,7 @@
   <v-list-item>
     <v-list-item-content>
       <v-list-item-title>{{ name }}</v-list-item-title>
-      <v-list-item-subtitle>Subtitle</v-list-item-subtitle>
+      <v-list-item-subtitle>{{ questions_asked }}</v-list-item-subtitle>
     </v-list-item-content>
     <v-list-item-action>
       <v-btn class="mx-2" fab dark x-small color="error" @click="destroy">
@@ -22,6 +22,11 @@ export default {
   computed: {
     name() {
       return this.personInfo.name
+    },
+    questions_asked() {
+      return this.personInfo.questions
+        .map((q) => (q.asked ? ' o ' : ' - '))
+        .join('')
     }
   },
   methods: {
