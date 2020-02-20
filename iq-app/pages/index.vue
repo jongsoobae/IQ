@@ -11,8 +11,8 @@
         clearable
         label="면접자 추가"
         type="text"
-        @keyup.enter="onAddNew"
-        @click:append-outer="onAddNew"
+        @keyup.enter="addNewPerson"
+        @click:append-outer="addNewPerson"
       ></v-text-field>
     </v-card>
     <v-card>
@@ -81,11 +81,16 @@ export default {
           })
         })
     },
-    addNewPerson(name) {
+    addNewPerson(ev) {
+      if (!this.inputName) {
+        ev.target.focus()
+        return
+      }
+
       fetch('http://127.0.0.1:8000/persons', {
         method: 'POST',
         body: JSON.stringify({
-          name,
+          name: this.inputName,
           date: '2020-02-21'
         })
       })

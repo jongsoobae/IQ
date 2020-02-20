@@ -4,7 +4,9 @@
       <QuestionItem
         v-for="(item, name) in questions"
         :key="name"
+        class="markdown-area"
         :question-info="item"
+        @save-question="saveQuestions"
         @delete-question="deleteQuestion"
       ></QuestionItem>
       <v-list-item>
@@ -31,20 +33,119 @@ export default {
     questions: {}
   }),
   created() {
-    this.fetchQuestions()
+    this.initialize()
   },
   methods: {
+    initialize() {
+      this.fetchQuestions()
+    },
     fetchQuestions() {
+      this.questions = {}
       fetch('http://127.0.0.1:8000/questions')
         .then((res) => res.json())
         .then((res) => {
           res.forEach((question) => {
             Vue.set(this.questions, question.title, {
-              title: question.title
+              title: question.title,
+              content: question.content,
+              id: question._id
             })
           })
+        })
+    },
+    saveQuestions(question) {
+      const { id, title, content } = question
+      if (id) this.updateQuestions(id, title, content)
+      else this.addNewQuestions(title, content)
+    },
+    addNewQuestions(title, content) {
+      fetch('http://127.0.0.1:8000/questions', {
+        method: 'POST',
+        body: JSON.stringify({
+          title,
+          content
+        })
+      })
+        .then(() => {
+          this.initialize()
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    },
+    updateQuestions(id, title, content) {
+      fetch(`http://127.0.0.1:8000/questions/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify({
+          title,
+          content
+        })
+      })
+        .then(() => {
+          this.initialize()
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    },
+    deleteQuestion(id) {
+      fetch(`http://127.0.0.1:8000/questions/${id}`, {
+        method: 'DELETE'
+      })
+        .then(() => {
+          this.initialize()
+        })
+        .catch((err) => {
+          alert(err)
         })
     }
   }
 }
 </script>
+
+<style>
+.markdown-area {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji;
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.markdown-area pre {
+  display: inline-block;
+  white-space: pre;
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #e6e8ea;
+  color: #2b2927;
+  border-radius: 3px;
+  word-wrap: normal;
+}
+.markdown-area pre code {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: initial;
+  border: 0 !important;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border-radius: 3px;
+  box-shadow: none;
+  color: inherit;
+  font-weight: 500;
+}
+.markdown-area pre code:after,
+.markdown-area pre code:before {
+  content: none !important;
+}
+</style>

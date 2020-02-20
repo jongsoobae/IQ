@@ -2,17 +2,23 @@ import logging
 import pprint
 from datetime import date
 
+from bson import ObjectId
 from databases import DatabaseURL
 from fastapi import Depends, FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
-from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from starlette.middleware.cors import CORSMiddleware
 
 
 class Person(BaseModel):
     name: str
     date: str
     questions: list = []
+
+
+class Question(BaseModel):
+    title: str
+    content: str
 
 
 class DataBase:
@@ -123,6 +129,18 @@ async def delete_person(db, name: str):
     await db.iqdb.iqdb.persons.delete_one({"name": name})
 
 
+async def create_question(db: AsyncIOMotorClient, question: Question):
+    await db.iqdb.iqdb.questions.insert_one({"title": question.title, "content": question.content})
+
+
+async def delete_question(db, _id: str):
+    await db.iqdb.iqdb.questions.delete_one({"_id": ObjectId(_id)})
+
+
+async def update_question(db, _id: str, question: Question):
+    await db.iqdb.iqdb.questions.update_one({"_id": ObjectId(_id)}, {"$set": {"title": question.title, "content": question.content}})
+
+
 @app.get("/questions")
 async def get_questions(db: AsyncIOMotorClient = Depends(get_database)):
     return await get_questions_from_db(db)
@@ -142,4 +160,22 @@ async def post_persons(person: Person, db: AsyncIOMotorClient = Depends(get_data
 @app.delete("/persons/{name}")
 async def delete_persons(name: str, db: AsyncIOMotorClient = Depends(get_database)):
     await delete_person(db, name)
+    return {"msg": "deleted"}
+
+
+@app.post("/questions")
+async def post_questions(question: Question, db: AsyncIOMotorClient = Depends(get_database)):
+    await create_question(db, question)
+    return {"msg": "created"}
+
+
+@app.delete("/questions/{_id}")
+async def delete_questions(_id: str, db: AsyncIOMotorClient = Depends(get_database)):
+    await delete_question(db, _id)
+    return {"msg": "deleted"}
+
+
+@app.put("/questions/{_id}")
+async def update_questions(_id: str, question: Question, db: AsyncIOMotorClient = Depends(get_database)):
+    await update_question(db, _id, question)
     return {"msg": "deleted"}

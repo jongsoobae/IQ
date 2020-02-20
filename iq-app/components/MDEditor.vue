@@ -5,10 +5,8 @@
       v-model="content"
       flat
       auto-grow
-      clearable
       outlined
       label="content"
-      rows="1"
       @focus="onFocusInput"
       @blur="onBlurInput"
     ></v-textarea>
