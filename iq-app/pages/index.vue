@@ -22,9 +22,11 @@
         </v-subheader>
         <v-divider></v-divider>
         <PersonItem
-          v-for="(item, name) in todayItems"
-          :key="name"
-          :person-info="item"
+          v-for="(item, id) in todayItems"
+          :id="id"
+          :key="id"
+          :name="item.name"
+          :questions="item.questions"
           @delete-person="deletePerson"
         ></PersonItem>
 
@@ -74,7 +76,8 @@ export default {
                 q.asked = false
                 return q
               })
-            Vue.set(this.todayItems, person.name, {
+            Vue.set(this.todayItems, person._id, {
+              id: person._id,
               name: person.name,
               questions
             })
