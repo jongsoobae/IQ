@@ -1,15 +1,14 @@
 import json
 import logging
+from typing import List
 
 from bson import ObjectId
 from databases import DatabaseURL
 from fastapi import Depends, FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from starlette.websockets import WebSocket, WebSocketDisconnect
-from pydantic import BaseModel
-
-from typing import List
 
 
 class Person(BaseModel):
