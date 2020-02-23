@@ -158,7 +158,7 @@ async def create_question(db: AsyncIOMotorClient, question: Question):
     created = await db.iqdb.iqdb.questions.insert_one(
         {"title": question.title, "content": question.content}
     )
-    await get_person_from_db(created.inserted_id)
+    await get_person_from_db(db, created.inserted_id)
     return await db.iqdb.iqdb.questions.find_one({"_id": created.inserted_id})
 
 
