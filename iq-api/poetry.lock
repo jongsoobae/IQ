@@ -1,21 +1,10 @@
 [[package]]
-category = "dev"
+category = "main"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 name = "appdirs"
 optional = false
 python-versions = "*"
 version = "1.4.3"
-
-[[package]]
-category = "dev"
-description = "A few extensions to pyyaml."
-name = "aspy.yaml"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.3.0"
-
-[package.dependencies]
-pyyaml = "*"
 
 [[package]]
 category = "dev"
@@ -69,7 +58,7 @@ python-versions = "*"
 version = "2019.11.28"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Validate configuration and produce human readable error messages."
 name = "cfgv"
 optional = false
@@ -118,7 +107,7 @@ postgresql = ["asyncpg", "psycopg2-binary"]
 sqlite = ["aiosqlite"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Distribution utilities"
 name = "distlib"
 optional = false
@@ -144,7 +133,7 @@ doc = ["mkdocs", "mkdocs-material", "markdown-include"]
 test = ["pytest (>=4.0.0)", "pytest-cov", "mypy", "black", "isort", "requests", "email-validator", "sqlalchemy", "peewee", "databases", "orjson", "async-exit-stack", "async-generator"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "A platform independent file lock."
 name = "filelock"
 optional = false
@@ -196,7 +185,7 @@ version = "0.1.1"
 test = ["Cython (0.29.14)"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "File identification library for Python"
 name = "identify"
 optional = false
@@ -235,7 +224,7 @@ futures = "*"
 pymongo = ">=3.10,<4"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Node.js virtual environment builder"
 name = "nodeenv"
 optional = false
@@ -274,19 +263,18 @@ version = "0.13.1"
 dev = ["pre-commit", "tox"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 name = "pre-commit"
 optional = false
 python-versions = ">=3.6"
-version = "2.0.1"
+version = "2.1.0"
 
 [package.dependencies]
-"aspy.yaml" = "*"
 cfgv = ">=2.0.0"
 identify = ">=1.0.0"
 nodeenv = ">=0.11.1"
-pyyaml = "*"
+pyyaml = ">=5.1"
 toml = "*"
 virtualenv = ">=15.2"
 
@@ -366,7 +354,7 @@ checkqa-mypy = ["mypy (v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
@@ -400,7 +388,7 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7)", "win-inet-pton"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -439,7 +427,7 @@ version = "0.12.9"
 full = ["aiofiles", "graphene", "itsdangerous", "jinja2", "python-multipart", "pyyaml", "requests", "ujson"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
 optional = false
@@ -492,7 +480,7 @@ python-versions = "*"
 version = "0.14.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Virtual Python Environment builder"
 name = "virtualenv"
 optional = false
@@ -526,17 +514,13 @@ python-versions = ">=3.6.1"
 version = "8.1"
 
 [metadata]
-content-hash = "d60d8058bde002078ffbc8e0443fbd710e27b728a66cc94956aaec24f3ea79ad"
+content-hash = "d99b93057c81c6da50aba2489f2e8b4634c03483e711285c09c129e260187165"
 python-versions = "^3.8"
 
 [metadata.files]
 appdirs = [
     {file = "appdirs-1.4.3-py2.py3-none-any.whl", hash = "sha256:d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"},
     {file = "appdirs-1.4.3.tar.gz", hash = "sha256:9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92"},
-]
-"aspy.yaml" = [
-    {file = "aspy.yaml-1.3.0-py2.py3-none-any.whl", hash = "sha256:463372c043f70160a9ec950c3f1e4c3a82db5fca01d334b6bc89c7164d744bdc"},
-    {file = "aspy.yaml-1.3.0.tar.gz", hash = "sha256:e7c742382eff2caed61f87a39d13f99109088e5e93f04d76eb8d4b28aa143f45"},
 ]
 atomicwrites = [
     {file = "atomicwrites-1.3.0-py2.py3-none-any.whl", hash = "sha256:03472c30eb2c5d1ba9227e4c2ca66ab8287fbfbbda3888aa93dc2e28fc6811b4"},
@@ -644,8 +628,8 @@ pluggy = [
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
 ]
 pre-commit = [
-    {file = "pre_commit-2.0.1-py2.py3-none-any.whl", hash = "sha256:0385479a0fe0765b1d32241f6b5358668cb4b6496a09aaf9c79acc6530489dbb"},
-    {file = "pre_commit-2.0.1.tar.gz", hash = "sha256:bf80d9dd58bea4f45d5d71845456fdcb78c1027eda9ed562db6fa2bd7a680c3a"},
+    {file = "pre_commit-2.1.0-py2.py3-none-any.whl", hash = "sha256:5387b53bb84ad9abc9b0845775dddd4e3243fd64cdcddaa6db28d3da6fbf06c2"},
+    {file = "pre_commit-2.1.0.tar.gz", hash = "sha256:5295fb6d652a6c5e0b4636cd2c73183efdf253d45b657ce7367183134e806fe1"},
 ]
 py = [
     {file = "py-1.8.1-py2.py3-none-any.whl", hash = "sha256:c20fdd83a5dbc0af9efd622bee9a5564e278f6380fffcacc43ba6f43db2813b0"},
