@@ -1,9 +1,0 @@
-README.rst
-setup.py
-iq_api/__init__.py
-iq_api/main.py
-iq_api.egg-info/PKG-INFO
-iq_api.egg-info/SOURCES.txt
-iq_api.egg-info/dependency_links.txt
-iq_api.egg-info/requires.txt
-iq_api.egg-info/top_level.txt
