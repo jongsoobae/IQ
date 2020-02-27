@@ -12,6 +12,7 @@ motor = "^2.1.0"
 databases = "^0.2.6"
 pre-commit = "^2.1.0"
 fastapi-cli = "^0.0.1"
+doc8 = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
