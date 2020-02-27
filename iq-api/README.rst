@@ -18,6 +18,7 @@ vi docker/.env::
 
 Execute mongodb::
 
+    cd docker
     docker-compose up -d
 
 
