@@ -6,5 +6,4 @@ services:
     restart: always
     ports:
       - 8002:80
-    environment: 
-      API_URL: http://localhost
+    env-file: ../.env

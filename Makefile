@@ -1,8 +1,16 @@
-API_URL ?= http://localhost
-DIST=iq-client/dist
+API_URL ?= http://localhost:8001
+CLIENT_HOME=iq-client
+MODULES=${CLIENT_HOME}/node_modules
+DIST=${CLIENT_HOME}/dist
 
+include .env
 
-dist:
+modules:
+	@if test -d $(MODULES); \
+	then echo 'node_modules already installed..'; \
+	else cd iq-client && yarn && echo 'node_modules installed.'; fi
+
+dist: modules
 	@if test -d $(DIST); \
 	then echo 'dist already exists..'; \
 	else cd iq-client && API_URL=$(API_URL) yarn build && echo 'dist created.'; fi
@@ -17,3 +25,6 @@ all: dist
 
 clean-all:
 	@docker-compose down
+
+flush: clean-dist
+	@docker-compose down --rmi local
