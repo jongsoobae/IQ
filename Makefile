@@ -1,10 +1,6 @@
 API_URL ?= http://localhost
 DIST=iq-client/dist
 
-db:
-	@cd iq-api && docker-compose -f standalone.docker-compose.yml up -d
-clean-db:
-	@cd iq-api && docker-compose -f standalone.docker-compose.yml down
 
 dist:
 	@if test -d $(DIST); \
