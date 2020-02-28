@@ -22,10 +22,13 @@ Develop
 ==========
 Deployment
 ==========
+
 run at once::
+
     make all
 
 Others::
+
     make dist
     make clean-dist
     make all
