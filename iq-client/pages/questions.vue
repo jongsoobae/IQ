@@ -55,7 +55,7 @@ export default {
       this.adding = false
     },
     fetchQuestions() {
-      fetch('http://127.0.0.1:8000/questions')
+      fetch(`${process.env.apiUrl}/questions`)
         .then((res) => res.json())
         .then((res) => {
           this.$store.commit('question/setQuestions', res)

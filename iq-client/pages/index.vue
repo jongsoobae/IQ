@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     fetchPersons() {
-      fetch('http://127.0.0.1:8000/persons')
+      fetch(`${process.env.apiUrl}/persons`)
         .then((res) => res.json())
         .then((res) => {
           this.$store.commit('person/setPersons', res)
@@ -72,7 +72,7 @@ export default {
         return
       }
 
-      fetch('http://127.0.0.1:8000/persons', {
+      fetch(`${process.env.apiUrl}/persons`, {
         method: 'POST',
         body: JSON.stringify({
           name: this.inputName
@@ -87,7 +87,7 @@ export default {
     },
     deletePerson(id) {
       if (!confirm('delete? Y/N')) return
-      fetch(`http://127.0.0.1:8000/persons/${id}`, {
+      fetch(`${process.env.apiUrl}/persons/${id}`, {
         method: 'DELETE'
       })
         .then(() => {

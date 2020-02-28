@@ -64,5 +64,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+  env: {
+    apiUrl: process.env.API_URL || 'http://127.0.0.1:8000'
+  },
 }

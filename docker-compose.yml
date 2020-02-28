@@ -1,0 +1,27 @@
+version: "3.5"
+services:
+  mongo:
+    image: mongo
+    container_name: IQ_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes:
+      - .volumes/mongo:/data/db
+  api:
+    build:
+      context: ./iq-api
+      dockerfile: Dockerfile
+      target: runner
+    container_name: IQ_api
+    ports:
+      - 80:80
+    environment: 
+      MONGO_ROOT_USER: root
+      MONGO_ROOT_PASSWORD: root
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      CORS_ALLOWED: http://127.0.0.1:3000,http://localhost:3000,http://127.0.0.1:8002

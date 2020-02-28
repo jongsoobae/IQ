@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId
 
-from iq_api.models import Question
+from app.models import Question
 
 
 def get_item(row):

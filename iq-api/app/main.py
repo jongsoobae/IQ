@@ -1,16 +1,15 @@
 import json
 
-from bson import ObjectId
 from fastapi import Depends, FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.cors import CORSMiddleware
 from starlette.websockets import WebSocket, WebSocketDisconnect
 
-from iq_api import mongo
-from iq_api.handlers import shutdown, startup
-from iq_api.models import Person, Question
-from iq_api.settings import CORS_ALLOWED
-from iq_api.utils import db, notifiers
+from app import mongo
+from app.handlers import shutdown, startup
+from app.models import Person, Question
+from app.settings import CORS_ALLOWED
+from app.utils import db, notifiers
 
 app = FastAPI()
 
@@ -110,7 +109,7 @@ async def websocket_endpoint(
             query = {f"questions.{qidx}.{k}": v for k, v in value.items()}
             await mongo.person.update_one(db, _id, query)
             await notifier._notify(json.dumps(data))
-    except WebSocketDisconnect as e:
+    except WebSocketDisconnect:
         print("disconnected", _id)
         if notifier.remove(websocket) == 0:
             notifiers.remove(_id)

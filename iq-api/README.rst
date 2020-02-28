@@ -8,7 +8,7 @@ Install python library::
     poetry install
 
 
-vi docker/.env::
+vi iq-api/.env::
 
     MONGO_ROOT_USER=root
     MONGO_ROOT_PASSWORD=root
@@ -24,5 +24,4 @@ Execute mongodb::
 
 Run::
 
-    cd iq_api
-    uvicorn main:app --reload
+    uvicorn app.main:app --reload

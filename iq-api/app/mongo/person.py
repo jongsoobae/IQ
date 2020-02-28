@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 
-from iq_api.models import Person
-from iq_api.mongo import question
+from app.models import Person
+from app.mongo import question
 
 
 def get_item(row):

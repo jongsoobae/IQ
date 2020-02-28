@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
-from iq_api.utils import db
-
 
 class Person(BaseModel):
     name: str

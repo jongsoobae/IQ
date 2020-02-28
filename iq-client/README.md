@@ -9,7 +9,7 @@
 $ yarn install
 
 # serve with hot reload at localhost:3000
-$ yarn dev
+$ API_URL=http(s)://{API_URL} yarn dev
 
 # build for production and launch server
 $ yarn build
