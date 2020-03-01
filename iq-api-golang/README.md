@@ -26,6 +26,9 @@ MONGO_PASSWORD=user
 * go gin 프로젝트 ROOT경로가  GOPATH가 되야한다.
 ![이미지2](./doc-img/img-gopath.png)
 
+#### install package
+* ``$ ./src go list -m -json all ```
+
 * iq-api-golang 
     * docker (몽고 도커 .env 파일 생성필요 )
     * pkg (gopath 설정 제대로되면 iq-api-golang/pkg가 생성됨 go.mod파일을 읽어서 install함)
