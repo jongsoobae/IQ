@@ -38,7 +38,7 @@ MONGO_PASSWORD=user
 ### [정보] go 패키지 관리
 * govendor라는 maven gradle 같은 툴이 있는데 원리공부어렵.. 
 * 지금은 go module을 사용하기.. 여러 오픈소스 보면 vendor로 관리되는 것을 보면 나중에 결국 go vendor 써야할듯
-* go module은 pip requirement.txt처럼 go.mod 파일에 필요한 라이브러리를 명시하는 파일
+* go module은 pip requirement.txt처럼 go.mod는 필요한 라이브러리를 명시하는 파일
     * ```~./iq-api-golang/```이 project gopath 설정이 되있다면  ```~./iq-api-golang/pkg``` 폴더 하위에(venv처럼) 의존 패키지 설치함 
     * go get ~~ 명령어인듯한데 IDE GoLand는 go.mod있으면 알아서 설치해줌
 
