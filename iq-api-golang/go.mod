@@ -1,1 +1,0 @@
-module "iq-api-golang"
