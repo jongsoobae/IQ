@@ -105,3 +105,8 @@ dist
 
 *.pyc
 __pycache__
+
+.vscode
+.env.*
+*.egg-info
+.volumes/

@@ -5,12 +5,14 @@ description = ""
 authors = ["jongsoobae <ocpek@nate.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 fastapi = "^0.49.0"
 uvicorn = "^0.11.3"
 motor = "^2.1.0"
 databases = "^0.2.6"
 pre-commit = "^2.1.0"
+doc8 = "^0.8.0"
+gunicorn = "^20.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

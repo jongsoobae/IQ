@@ -25,7 +25,7 @@ export const mutations = {
 
 export const actions = {
   fetchSetPerson({ commit, state }, id) {
-    return fetch(`http://127.0.0.1:8000/persons/${id}`)
+    return fetch(`${process.env.apiUrl}/persons/${id}`)
       .then((res) => res.json())
       .then((res) => {
         commit('setPerson', res)

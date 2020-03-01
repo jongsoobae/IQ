@@ -4,7 +4,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: '%s - ' + process.env.npm_package_description,
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -64,5 +64,8 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+  env: {
+    apiUrl: process.env.API_URL || 'http://127.0.0.1:8000'
+  },
 }

@@ -1,5 +1,5 @@
 const createQuestion = (title, content) => {
-  return fetch('http://127.0.0.1:8000/questions', {
+  return fetch(`${process.env.apiUrl}/questions`, {
     method: 'POST',
     body: JSON.stringify({
       title,
@@ -9,7 +9,7 @@ const createQuestion = (title, content) => {
 }
 
 const updateQuestions = (id, title, content) => {
-  return fetch(`http://127.0.0.1:8000/questions/${id}`, {
+  return fetch(`${process.env.apiUrl}/questions/${id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json; charset=UTF-8'
@@ -70,7 +70,7 @@ export const actions = {
       })
   },
   deleteQuestion({ commit, state }, id) {
-    return fetch(`http://127.0.0.1:8000/questions/${id}`, {
+    return fetch(`${process.env.apiUrl}/questions/${id}`, {
       method: 'DELETE'
     }).then(() => {
       commit('deleteQuestion', id)
