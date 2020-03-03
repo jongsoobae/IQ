@@ -2,15 +2,10 @@ CLIENT_HOME=iq-client
 MODULES=${CLIENT_HOME}/node_modules
 DIST=${CLIENT_HOME}/dist
 
-modules:
-	@if test -d $(MODULES); \
-	then echo 'node_modules already installed..'; \
-	else cd iq-client && yarn && echo 'node_modules installed.'; fi
-
-dist: modules
+dist:
 	@if test -d $(DIST); \
 	then echo 'dist already exists..'; \
-	else cd iq-client && yarn build && echo 'dist created.'; fi
+	else cd iq-client && yarn && yarn build && echo 'dist created.'; fi
 
 clean-dist:
 	@if test -d $(DIST); \

@@ -9,4 +9,7 @@ DB_HOST = config("MONGO_HOST")
 DB_PORT = config("MONGO_PORT")
 
 
-CORS_ALLOWED = config("CORS_ALLOWED").split(",")
+CORS_ALLOWED = [
+    x.replace(":80", "") if x.endswith(":80") else x
+    for x in config("CORS_ALLOWED").split(",")
+]
