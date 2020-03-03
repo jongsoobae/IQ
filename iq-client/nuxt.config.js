@@ -75,8 +75,7 @@ export default {
     routes() {
       return axios.get(`${process.env.API_URL}/persons`).then((res) => {
         return res.data.map((person) => {
-          console.log(person)
-          return `/persons/${person._id}`
+          return `/persons/${person.id}`
         })
       })
     }
