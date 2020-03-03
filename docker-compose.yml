@@ -23,5 +23,5 @@ services:
     container_name: IQ_client
     restart: always
     ports:
-      - 8002:80
+      - ${WEB_PORT}:80
     env_file: .env
