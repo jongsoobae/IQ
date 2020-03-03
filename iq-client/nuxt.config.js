@@ -1,4 +1,7 @@
-import axios from 'axios'
+import dotenv from "dotenv"
+
+
+const env = dotenv.config({ path: "../.env" }).parsed
 
 export default {
   mode: 'spa',
@@ -68,7 +71,7 @@ export default {
     extend(config, ctx) {}
   },
   env: {
-    apiUrl: process.env.API_URL || 'http://127.0.0.1:8000',
-    wsUrl: process.env.WS_URL || 'ws://127.0.0.1:8000'
+    apiUrl: `${env.API_SCHEME}://${env.API_HOST}:${env.API_PORT}`,
+    wsUrl: `${env.WS_SCHEME}://${env.API_HOST}:${env.API_PORT}`
   },
 }
