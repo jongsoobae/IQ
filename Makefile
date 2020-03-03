@@ -1,4 +1,5 @@
 API_URL ?= http://localhost:8001
+WS_URL ?= ws://localhost:8001
 CLIENT_HOME=iq-client
 MODULES=${CLIENT_HOME}/node_modules
 DIST=${CLIENT_HOME}/dist
@@ -13,7 +14,7 @@ modules:
 dist: modules
 	@if test -d $(DIST); \
 	then echo 'dist already exists..'; \
-	else cd iq-client && API_URL=$(API_URL) yarn build && echo 'dist created.'; fi
+	else cd iq-client && API_URL=$(API_URL) WS_URL=$(WS_URL) yarn build && echo 'dist created.'; fi
 
 clean-dist:
 	@if test -d $(DIST); \
