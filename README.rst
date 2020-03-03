@@ -14,9 +14,16 @@ vi .env::
     MONGO_INITDB_ROOT_PASSWORD=root
     MONGO_HOST=mongo
     MONGO_PORT=27017
-    CORS_ALLOWED=http://127.0.0.1:3000,http://localhost:3000,http://127.0.0.1:8002
+
+    WEB_SCHEME=http
+    WEB_HOST=iq.dhk.co.kr
+    WEB_PORT=80
+
+    API_SCHEME=http
+    WS_SCHEME=ws
+    API_HOST=iq.dhk.co.kr
     API_PORT=8003
-    API_URL=http://localhost:${API_PORT}
+
 
 ========
 Develop

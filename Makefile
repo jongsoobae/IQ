@@ -1,5 +1,5 @@
-API_URL ?= http://localhost:8001
-WS_URL ?= ws://localhost:8001
+API_URL = $(API_SCHEME)://$(API_HOST):$(API_PORT)
+WS_URL = $(WS_SCHEME)://$(API_HOST):$(API_PORT)
 CLIENT_HOME=iq-client
 MODULES=${CLIENT_HOME}/node_modules
 DIST=${CLIENT_HOME}/dist
