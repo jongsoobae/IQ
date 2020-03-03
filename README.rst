@@ -15,7 +15,8 @@ vi .env::
     MONGO_HOST=mongo
     MONGO_PORT=27017
     CORS_ALLOWED=http://127.0.0.1:3000,http://localhost:3000,http://127.0.0.1:8002
-    API_URL=http://localhost:8001
+    API_PORT=8003
+    API_URL=http://localhost:${API_PORT}
 
 ========
 Develop

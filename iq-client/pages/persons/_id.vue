@@ -35,7 +35,7 @@ export default {
     await store.dispatch('person/fetchSetPerson', params.id)
     const { socket, created } = await store.dispatch(
       'socket',
-      `ws://localhost:8000/person/${params.id}/question/ws`
+      `${process.env.apiUrl}/person/${params.id}/question/ws`
     )
 
     if (created) {
