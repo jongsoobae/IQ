@@ -1,5 +1,4 @@
-const axios = require('axios')
-
+import axios from 'axios'
 
 export default {
   mode: 'spa',
@@ -70,10 +69,10 @@ export default {
   },
   env: {
     apiUrl: process.env.API_URL || 'http://127.0.0.1:8000',
-    wsUrl: process.env.WS_URL || 'ws://127.0.0.1:8000',
+    wsUrl: process.env.WS_URL || 'ws://127.0.0.1:8000'
   },
   generate: {
-    routes () {
+    routes() {
       return axios.get(`${process.env.API_URL}/persons`).then((res) => {
         return res.data.map((person) => {
           console.log(person)
