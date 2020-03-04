@@ -21,7 +21,7 @@ async def insert_one(db, question: Question):
     created = await model(db).insert_one(
         {"title": question.title, "content": question.content}
     )
-    return await get_item(model(db).find_one({"_id": created.inserted_id}))
+    return get_item(await model(db).find_one({"_id": created.inserted_id}))
 
 
 async def update_one(db, _id: str, query):
