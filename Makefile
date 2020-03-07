@@ -15,7 +15,10 @@ clean-dist:
 all: dist
 	@docker-compose up -d
 
-clean-all:
+clean:
+	@docker-compose down
+
+clean-all: clean-dist
 	@docker-compose down
 
 flush: clean-dist
