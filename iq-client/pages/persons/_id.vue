@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="(item, index) in questions" class="markdown-area">
+    <template v-for="(item, index) in questions">
       <mavon-editor
         :key="item.id"
         :value="getQuestion(item, index)"
@@ -9,6 +9,7 @@
         :subfield="false"
         default-open="preview"
         :toolbars-flag="false"
+        class="markdown-area"
       />
       <v-checkbox
         :key="item.id + '_' + 'asked'"
