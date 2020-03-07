@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="markdown-area">
     <template v-for="(item, index) in questions">
       <mavon-editor
         :key="item.id"
@@ -137,14 +137,14 @@ export default {
   padding: 0 !important;
 }
 
-.markdown-body {
+.markdown-area {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
     sans-serif, Apple Color Emoji, Segoe UI Emoji;
   font-size: 0.8em;
   line-height: 1.5;
   word-wrap: break-word;
 }
-.markdown-body pre {
+.markdown-area pre {
   display: inline-block;
   white-space: pre;
   padding: 16px;
@@ -156,7 +156,7 @@ export default {
   border-radius: 3px;
   word-wrap: normal;
 }
-.markdown-body pre code {
+.markdown-area pre code {
   display: inline-block;
   padding: 0;
   margin: 0;
@@ -174,8 +174,8 @@ export default {
   color: inherit;
   font-weight: 500;
 }
-.markdown-body pre code:after,
-.markdown-body pre code:before {
+.markdown-area pre code:after,
+.markdown-area pre code:before {
   content: none !important;
 }
 </style>
