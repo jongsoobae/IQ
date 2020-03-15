@@ -1,0 +1,342 @@
+basePath: /
+definitions:
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      msg:
+        example: 잘못된 입력입니다.
+        type: string
+    type: object
+  httputil.HTTPSuccess:
+    properties:
+      code:
+        example: 200
+        type: integer
+      msg:
+        example: 처리되었습니다.
+        type: string
+    type: object
+  httputil.QuestionHTTPSuccess:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data:
+        $ref: '#/definitions/model.Questions'
+        type: object
+      msg:
+        example: 처리되었습니다.
+        type: string
+    type: object
+  model.Persons:
+    properties:
+      _created:
+        example: "2020-03-15T07:45:26.085Z"
+        type: string
+      _modified:
+        example: "2020-03-15T07:45:26.085Z"
+        type: string
+      exists:
+        type: boolean
+      id:
+        example: 5e6ddd933070909e680d33a6
+        type: string
+      name:
+        example: 김응시자
+        type: string
+      question:
+        description: Date               string `form:"date" json:"date" xml:"date"
+          example:"2020-03-02 11:04:05"`
+        example:
+        - 1+1은 무엇입니까?
+        items:
+          type: string
+        type: array
+    required:
+    - name
+    type: object
+  model.Questions:
+    properties:
+      _created:
+        example: "2020-03-15T07:45:26.085Z"
+        type: string
+      _modified:
+        example: "2020-03-15T07:45:26.085Z"
+        type: string
+      content:
+        example: 1더하기1을 3이라 대답함! 성장가능성을 확인함...
+        type: string
+      exists:
+        type: boolean
+      id:
+        example: 5e6ddd933070909e680d33a6
+        type: string
+      title:
+        example: 1+1은 무엇입니까?
+        type: string
+    required:
+    - content
+    - title
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: 적당한 이메일 넣는곳
+    name: 딜리버리히어로코리아 jongsu bae
+    url: http://www.swagger.io/support
+  description: 주석으로 API 문서를 만드네  흠터레스팅!
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Go Gin Iq API 문서
+  version: "1.0"
+paths:
+  /persons:
+    get:
+      consumes:
+      - application/json
+      description: 주석으로 싹다 문서 작성해줘야되네 ... 근데 drf-yasg에서 문서 자동화한다고 더 어려워진 OAS구현체 파악한다고
+        짜치는거보다 차라리 이게 나을수도??
+      operationId: FindAll-Person
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Persons'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 아니 스웨거 자동 문서화가 아니야 ...
+    post:
+      consumes:
+      - application/json
+      description: 자동화가 안되서 슬픈 문서여..
+      operationId: Create-Person
+      parameters:
+      - description: Person
+        in: body
+        name: person
+        required: true
+        schema:
+          $ref: '#/definitions/model.Persons'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Persons'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 이건 생성API
+  /persons/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: '....'
+      operationId: Delete-Person
+      parameters:
+      - description: Person ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httputil.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 이건 삭제API
+    get:
+      consumes:
+      - application/json
+      description: 주...
+      operationId: FindOne-Person
+      parameters:
+      - description: Person ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Persons'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 면접자 불러오기
+  /questions:
+    get:
+      consumes:
+      - application/json
+      description: 주석으로 싹다 문서 작성해줘야되네 ...
+      operationId: FindAll-Question
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Questions'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 아니 스웨거 자동 문서화가 아니야 ...
+    post:
+      consumes:
+      - application/json
+      description: 자동화가 안되서 슬픈 문서여..
+      operationId: Create-Questions
+      parameters:
+      - description: Questions
+        in: body
+        name: question
+        required: true
+        schema:
+          $ref: '#/definitions/model.Questions'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httputil.QuestionHTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 이건 Questions 생성 API
+  /questions/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: '....'
+      operationId: Delete-Question
+      parameters:
+      - description: Question ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httputil.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 이건 Question 삭제API
+    put:
+      consumes:
+      - application/json
+      description: 자동화가 안되서 슬픈 문서여..
+      operationId: Update-Questions
+      parameters:
+      - description: Question ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Questions
+        in: body
+        name: question
+        required: true
+        schema:
+          $ref: '#/definitions/model.Questions'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httputil.HTTPSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: 이건 Questions 수정 API
+swagger: "2.0"
