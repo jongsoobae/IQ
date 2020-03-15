@@ -1,49 +1,52 @@
 
 ### QuickStart
-Go는 문서화가 극악이다... 
 
-#### 1. Docker Mongo .env 만들기
-$ pwd 
-~./iq-api-golang/
 
-vi ./docker/.env
-##### port는 취향, 토이 프로젝트가 메인포트 쓰는거 싫어서 포트번호 저렇게 설정함
+#### 1. Docker Mongo Up
+* ~/IQ/README.rst 읽고 .env 파일 생성
+* ```docker-compose -f ./standalone.docker-compose.yml up -d  ``` 수행
+* ``` docker ps ```  아래처럼 mongo 컨테이너가 올라가있어야한다.
 ~~~
-MONGO_PORT=28817
-MONGO_ROOT_USER=root
-MONGO_ROOT_PASSWORD=root
-MONGO_USER=user
-MONGO_PASSWORD=user
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS                          PORTS                                                                                        NAMES
+f8bbb41e95b5   mongo     "docker-entrypoint.s…"   25 hours ago        Up 25 hours                     0.0.0.0:27017->27017/tcp                                                                     IQ_standalone_mongo
 ~~~
 
 
 #### 2. GoLang goPath 등록
 
 #### goRoot 설정
-![이미지1](./doc-img/img-goroot.png)
+![이미지1](readme-img/img-goroot.png)
 
 #### goPath 설정
-* go gin 프로젝트 ROOT경로가  GOPATH가 되야한다.
-![이미지2](./doc-img/img-gopath.png)
+* iq-api-golang/src 가 GOPATH가 되야한다.
+![이미지2](readme-img/img-gopath.png)
 
-#### install package
-* ``$ ./src go list -m -json all ```
+### 3. install package
+1. ```$ cd ~/src/main ```
+2. ```go build ```  go.mod 파일이 있는 곳에서 수행해야함
+3. ```go get -u github.com/swaggo/swag/cmd/swag ``` swaggo cmd build
+4. ```swag init ``` swagger 문서 관련 파일 생성 ~/docs 이라는 패키지를 떨궈준다.  
 
-* iq-api-golang 
-    * docker (몽고 도커 .env 파일 생성필요 )
-    * pkg (gopath 설정 제대로되면 iq-api-golang/pkg가 생성됨 go.mod파일을 읽어서 install함)
-    * src (여기에 app단위(=package단위)로 소스코드 작성 )
+### 4. Run Server
+* ```go run main.go ```  참고: port와 host 선언은 main.go 에서 코드수정으로 작업한다. 
 
 
-### [정보] go 패키지 관리
-* govendor라는 maven gradle 같은 툴이 있는데 원리공부어렵.. 
-* 지금은 go module을 사용하기.. 여러 오픈소스 보면 vendor로 관리되는 것을 보면 나중에 결국 go vendor 써야할듯
+---
+
+
+
+### [Reference] go module 
+* go module을 사용 (go 패키지 관리 모듈이 다양했으나 go module 이라는 녀석으로 지금은  서열정리가 완벽히 끝났다.)
 * go module은 pip requirement.txt처럼 go.mod는 필요한 라이브러리를 명시하는 파일
-    * ```~./iq-api-golang/```이 project gopath 설정이 되있다면  ```~./iq-api-golang/pkg``` 폴더 하위에(venv처럼) 의존 패키지 설치함 
+    * ```~./iq-api-golang/```이 project gopath 설정이 되있다면  ```~./iq-api-golang/src/pkg``` 폴더 하위에(venv처럼) 의존 패키지 설치함 
     * go get ~~ 명령어인듯한데 IDE GoLand는 go.mod있으면 알아서 설치해줌
 
-#### Package 아키텍처는 아래 참고 
-* [controller service repo 아키텍은 어케 쓰는지 모호 ](https://www.reddit.com/r/golang/comments/9h7dnn/repository_service_patern_go/)
-  * 근데 gin example에 controller 있는거보면 Controller service 패턴을 쓰는거같긴한데...
-* [Golang 표준 패키지 구조 medium](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1)
-* 5분 구글링 검색결과이니 위에 두문장은 100% 신뢰 ㄴㄴ
+
+
+
+
+#### [Reference] Gin Package Architecture (~~~clean architecture??~~~)
+* [controller service repo golang 검색하니까 나온 내용 ](https://www.reddit.com/r/golang/comments/9h7dnn/repository_service_patern_go/)
+* [(medium) Golang 표준 패키지 구조? ](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1)
+* 5분 구글링 검색결과이니 위에 두개는 100% 신뢰 ㄴㄴ
+* [(go-gin tutorial Restfull) Projects API with Gin](https://riptutorial.com/go/example/29299/restfull-projects-api-with-gin)
