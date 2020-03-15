@@ -110,3 +110,7 @@ __pycache__
 .env.*
 *.egg-info
 .volumes/
+
+iq-api-golang/src/pkg
+iq-api/venv/*
+.idea/*
