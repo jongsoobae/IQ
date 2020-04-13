@@ -1,6 +1,6 @@
 from starlette.config import Config
 
-config = Config(".env")
+config = Config("../.env")
 
 
 DB_USER = config("MONGO_INITDB_ROOT_USERNAME")

@@ -5,8 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	controller "iq-api-golang/main/controller"
-	_ "iq-api-golang/main/docs"
+	"iq-api-golang/controller"
+
+	_ "iq-api-golang/docs"
 )
 
 // @title Go Gin Iq API 문서
@@ -21,7 +22,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost
+// @host localhost:8080
 // @BasePath /
 func main() {
 	fmt.Println("asdf")
@@ -30,19 +31,26 @@ func main() {
 
 	ctl := controller.NewController()
 
-	v1 := r.Group("/")
+	people := r.Group("/persons")
 	{
-		people := v1.Group("/persons")
-		{
-			people.GET("/:name", ctl.RetrieveOne)
-
-			//...
-		}
+		people.GET("", ctl.FindAllPerson)
+		people.GET("/:id", ctl.FindOnePerson)
+		people.POST("", ctl.CreatePerson)
+		people.DELETE("/:id", ctl.DeletePerson)
+		//...
+	}
+	question := r.Group("/questions")
+	{
+		question.GET("", ctl.FindAllQuestion)
+		question.POST("", ctl.CreateQuestion)
+		question.PUT("/:id", ctl.UpdateQuestion)
+		question.DELETE("/:id", ctl.DeleteQuestion)
+		//...
 	}
 
 	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
-	r.Run(":8080")
+	r.Run("localhost:8080")
 
 }
