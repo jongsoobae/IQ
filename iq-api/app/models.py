@@ -9,7 +9,7 @@ class Person(BaseModel):
 class Question(BaseModel):
     title: str
     content: str
-    tags: list = []
+    tags: List[str] = []
 
 
 class Tag(BaseModel):
