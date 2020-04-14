@@ -97,11 +97,7 @@ async def update_questions(
     tags = await mongo.tag.find(db)
     additional_tags = set(question.tags).difference(x["name"] for x in tags)
     await mongo.tag.insert_many(db, [{"name": tag} for tag in additional_tags])
-    query = {
-        "title": question.title,
-        "content": question.content,
-        "tags": question.tags,
-    }
+    query = question.dict()
     await mongo.question.update_one(db, _id, query)
     return {"msg": "updated"}
 
