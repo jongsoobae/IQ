@@ -1,3 +1,5 @@
+from typing import List
+
 from bson.objectid import ObjectId
 
 from app.models import Question
@@ -18,9 +20,7 @@ async def find(db):
 
 
 async def insert_one(db, question: Question):
-    created = await model(db).insert_one(
-        {"title": question.title, "content": question.content}
-    )
+    created = await model(db).insert_one(question.dict())
     return get_item(await model(db).find_one({"_id": created.inserted_id}))
 
 
@@ -32,3 +32,7 @@ async def update_one(db, _id: str, query):
 
 async def delete_one(db, _id: str):
     await model(db).delete_one({"_id": ObjectId(_id)})
+
+
+async def update_tag(db, _id: str, tags: List[str]):
+    await model(db).update_one({"_id": ObjectId(_id)}, {"$set": {"tags": tags}})

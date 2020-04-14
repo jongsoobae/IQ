@@ -9,3 +9,8 @@ class Person(BaseModel):
 class Question(BaseModel):
     title: str
     content: str
+    tags: list = []
+
+
+class Tag(BaseModel):
+    name: str

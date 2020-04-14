@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from fastapi import Depends, FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -77,6 +78,9 @@ async def delete_persons(_id: str, db: AsyncIOMotorClient = Depends(get_database
 async def post_questions(
     question: Question, db: AsyncIOMotorClient = Depends(get_database)
 ):
+    tags = await mongo.tag.find(db)
+    additional_tags = set(question.tags).difference(x["name"] for x in tags)
+    await mongo.tag.insert_many(db, [{"name": tag} for tag in additional_tags])
     return {"msg": "created", "data": await mongo.question.insert_one(db, question)}
 
 
@@ -90,7 +94,14 @@ async def delete_questions(_id: str, db: AsyncIOMotorClient = Depends(get_databa
 async def update_questions(
     _id: str, question: Question, db: AsyncIOMotorClient = Depends(get_database)
 ):
-    query = {"title": question.title, "content": question.content}
+    tags = await mongo.tag.find(db)
+    additional_tags = set(question.tags).difference(x["name"] for x in tags)
+    await mongo.tag.insert_many(db, [{"name": tag} for tag in additional_tags])
+    query = {
+        "title": question.title,
+        "content": question.content,
+        "tags": question.tags,
+    }
     await mongo.question.update_one(db, _id, query)
     return {"msg": "updated"}
 
@@ -113,3 +124,22 @@ async def websocket_endpoint(
         print("disconnected", _id)
         if notifier.remove(websocket) == 0:
             notifiers.remove(_id)
+
+
+@app.get("/tags")
+async def get_tags(db: AsyncIOMotorClient = Depends(get_database)):
+    return await mongo.tag.find(db)
+
+
+@app.post("/tags")
+async def post_tags(tags: List[str], db: AsyncIOMotorClient = Depends(get_database)):
+    await mongo.tag.delete_all(db)
+    if tags:
+        await mongo.tag.insert_many(db, [{"name": tag} for tag in tags])
+    return {"msg": "created"}
+
+
+@app.delete("/tags/{name}")
+async def delete_tags(name: str, db: AsyncIOMotorClient = Depends(get_database)):
+    await mongo.tag.delete_by_name(db, name)
+    return {"msg": "deleted"}

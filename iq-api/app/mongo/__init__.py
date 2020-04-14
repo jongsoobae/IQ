@@ -1,1 +1,1 @@
-from . import person, question  # noqa
+from . import person, question, tag  # noqa

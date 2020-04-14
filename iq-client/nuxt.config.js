@@ -32,7 +32,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '@/plugins/vue-mavon-editor', srr: false }],
+  plugins: [
+    { src: '@/plugins/vue-tagsinput', srr: false },
+    { src: '@/plugins/vue-mavon-editor', srr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
