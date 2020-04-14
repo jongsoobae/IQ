@@ -34,7 +34,8 @@ export default {
    */
   plugins: [
     { src: '@/plugins/vue-tagsinput', srr: false },
-    { src: '@/plugins/vue-mavon-editor', srr: false }
+    { src: '@/plugins/vue-mavon-editor', srr: false },
+    { src: '@/plugins/common', srr: false }
   ],
   /*
    ** Nuxt.js dev-modules

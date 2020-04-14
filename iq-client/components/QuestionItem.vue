@@ -10,7 +10,7 @@
             class="ma-1"
             small
             label
-            color="#cde"
+            :color="toHex(tag.value)"
           >
             <v-icon left small>mdi-tag</v-icon>
             {{ tag.value }}
@@ -163,6 +163,9 @@ export default {
     close(ev) {
       this.initialize()
       this.$store.commit('question/deleteQuestion', '')
+    },
+    toHex(st) {
+      return this.$toHex(st)
     }
   }
 }
