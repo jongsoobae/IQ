@@ -3,11 +3,7 @@ from typing import List
 from bson.objectid import ObjectId
 
 from app.models import Tag
-
-
-def get_item(row):
-    row["id"] = str(row.pop("_id"))
-    return row
+from app.mongo.util import modify_id_response
 
 
 def model(db):
@@ -16,7 +12,7 @@ def model(db):
 
 async def find(db):
     rows = model(db).find().sort("_id", -1)
-    return [get_item(row) async for row in rows]
+    return [modify_id_response(row) async for row in rows]
 
 
 async def find_one(db, _id):

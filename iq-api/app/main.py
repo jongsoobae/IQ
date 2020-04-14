@@ -9,6 +9,7 @@ from starlette.websockets import WebSocket, WebSocketDisconnect
 from app import mongo
 from app.handlers import shutdown, startup
 from app.models import Person, Question
+from app.mongo.util import modify_id_response
 from app.settings import CORS_ALLOWED
 from app.utils import db, notifiers
 
@@ -42,11 +43,6 @@ def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
 
-def get_item(row):
-    row["id"] = str(row.pop("_id"))
-    return row
-
-
 @app.get("/questions")
 async def get_questions(db: AsyncIOMotorClient = Depends(get_database)):
     return await mongo.question.find(db)
@@ -65,7 +61,7 @@ async def post_persons(person: Person, db: AsyncIOMotorClient = Depends(get_data
 
 @app.get("/persons/{_id}")
 async def get_single_person(_id: str, db: AsyncIOMotorClient = Depends(get_database)):
-    return get_item(await mongo.person.find_one(db, _id))
+    return modify_id_response(await mongo.person.find_one(db, _id))
 
 
 @app.delete("/persons/{_id}")
