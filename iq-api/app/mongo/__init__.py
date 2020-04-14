@@ -1,1 +1,1 @@
-from . import person, question, tag  # noqa: F401
+from . import compose, person, question, tag  # noqa: F401

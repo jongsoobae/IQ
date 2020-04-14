@@ -74,9 +74,7 @@ async def delete_persons(_id: str, db: AsyncIOMotorClient = Depends(get_database
 async def post_questions(
     question: Question, db: AsyncIOMotorClient = Depends(get_database)
 ):
-    tags = await mongo.tag.find(db)
-    additional_tags = set(question.tags).difference(x["name"] for x in tags)
-    await mongo.tag.insert_many(db, [{"name": tag} for tag in additional_tags])
+    await mongo.compose.add_additional_tags(db, question.tags)
     return {"msg": "created", "data": await mongo.question.insert_one(db, question)}
 
 
@@ -90,11 +88,8 @@ async def delete_questions(_id: str, db: AsyncIOMotorClient = Depends(get_databa
 async def update_questions(
     _id: str, question: Question, db: AsyncIOMotorClient = Depends(get_database)
 ):
-    tags = await mongo.tag.find(db)
-    additional_tags = set(question.tags).difference(x["name"] for x in tags)
-    await mongo.tag.insert_many(db, [{"name": tag} for tag in additional_tags])
-    query = question.dict()
-    await mongo.question.update_one(db, _id, query)
+    await mongo.compose.add_additional_tags(db, question.tags)
+    await mongo.question.update_one(db, _id, question.dict())
     return {"msg": "updated"}
 
 
