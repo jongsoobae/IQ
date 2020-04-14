@@ -35,8 +35,9 @@ export default {
   components: {
     QuestionItem
   },
-  asyncData: ({ store }) => {
+  async asyncData({ store }) {
     store.commit('setLayoutTitle', '문제')
+    await store.dispatch('tag/fetchTags')
     return {
       adding: false
     }

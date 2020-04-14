@@ -4,6 +4,17 @@
       <v-list-item-content @click="editMode = true">
         <v-list-item-title>
           {{ title }}
+          <v-chip
+            v-for="tag in tags"
+            :key="tag.value"
+            class="ma-1"
+            small
+            label
+            color="#cde"
+          >
+            <v-icon left small>mdi-tag</v-icon>
+            {{ tag.value }}
+          </v-chip>
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -17,6 +28,11 @@
             language="en"
             :subfield="false"
           />
+          <VoerroTagsInput
+            v-model="tags"
+            :existing-tags="existTags"
+            :typeahead="true"
+          ></VoerroTagsInput>
         </v-card>
       </v-list-item-content>
       <v-list-item-action>
@@ -42,8 +58,11 @@
 </template>
 
 <script>
+import VoerroTagsInput from '@voerro/vue-tagsinput'
+
 export default {
   name: 'QuestionItem',
+  components: { VoerroTagsInput },
   props: {
     id: {
       type: String,
@@ -97,28 +116,41 @@ export default {
     },
     question() {
       return this.$store.state.question.questions[this.id]
+    },
+    existTags() {
+      return this.$store.state.tag.tags
     }
   },
   created() {
     this.editMode = this.editing
     this.title = this.question.title
     this.content = this.question.content
+    this.tags = (this.question.tags || []).map((tag) => ({
+      key: '',
+      value: tag
+    }))
   },
   methods: {
     initialize() {
       this.editMode = false
       this.title = this.question.title
       this.content = this.question.content
+      this.tags = (this.question.tags || []).map((tag) => ({
+        key: '',
+        value: tag
+      }))
     },
     save(ev) {
       this.$store
         .dispatch('question/saveQuestion', {
           id: this.id,
           title: this.title,
-          content: this.content
+          content: this.content,
+          tags: this.tags.map((slug) => slug.value)
         })
         .then(() => {
           this.editMode = false
+          this.$store.dispatch('tag/fetchTags')
         })
         .catch((err) => {
           alert(err)

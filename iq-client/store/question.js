@@ -1,23 +1,17 @@
-const createQuestion = (title, content) => {
+const createQuestion = (question) => {
   return fetch(`${process.env.apiUrl}/questions`, {
     method: 'POST',
-    body: JSON.stringify({
-      title,
-      content
-    })
+    body: JSON.stringify({ ...question })
   })
 }
 
-const updateQuestions = (id, title, content) => {
+const updateQuestions = (id, question) => {
   return fetch(`${process.env.apiUrl}/questions/${id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json; charset=UTF-8'
     },
-    body: JSON.stringify({
-      title,
-      content
-    })
+    body: JSON.stringify({ ...question })
   })
 }
 
@@ -52,11 +46,10 @@ export const mutations = {
 }
 
 export const actions = {
-  saveQuestion({ commit, state }, question) {
+  saveQuestion({ commit, dispatch, state }, question) {
     let response
-    if (question.id)
-      response = updateQuestions(question.id, question.title, question.content)
-    else response = createQuestion(question.title, question.content)
+    if (question.id) response = updateQuestions(question.id, question)
+    else response = createQuestion(question)
     return response
       .then((res) => res.json())
       .then((res) => {

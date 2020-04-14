@@ -1,12 +1,13 @@
+from typing import List
+
 from bson.objectid import ObjectId
 
-from app.models import Person
-from app.mongo import question
+from app.models import Tag
 from app.mongo.util import modify_id_response
 
 
 def model(db):
-    return db.iqdb.persons
+    return db.iqdb.tags
 
 
 async def find(db):
@@ -18,9 +19,16 @@ async def find_one(db, _id):
     return await model(db).find_one({"_id": ObjectId(_id)})
 
 
-async def insert_one(db, person: Person):
-    questions = await question.find(db)
-    await model(db).insert_one({"name": person.name, "questions": questions})
+async def insert_one(db, tag: Tag):
+    await model(db).insert_one({"name": tag.name})
+
+
+async def delete_all(db):
+    await model(db).delete_many({})
+
+
+async def insert_many(db, tags: List[Tag]):
+    await model(db).insert_many(tags)
 
 
 async def update_one(db, _id: str, query):
@@ -29,3 +37,7 @@ async def update_one(db, _id: str, query):
 
 async def delete_one(db, _id: str):
     await model(db).delete_one({"_id": ObjectId(_id)})
+
+
+async def delete_by_name(db, name: str):
+    await model(db).delete_one({"name": name})

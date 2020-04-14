@@ -73,6 +73,11 @@ export default {
         icon: 'mdi-chart-bubble',
         title: '문제 추가/수정',
         to: '/questions'
+      },
+      {
+        icon: 'mdi-tag-multiple',
+        title: 'Tags',
+        to: '/tags'
       }
     ],
     footer: {
