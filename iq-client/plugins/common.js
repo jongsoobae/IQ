@@ -7,8 +7,8 @@ const toHex = (st) => {
     hash = st.charCodeAt(i) + ((hash << 5) - hash)
     hash = Math.abs(hash & hash)
   }
-  let color = '#78'
-  for (let i = 0; i < 2; i++) {
+  let color = '#'
+  for (let i = 0; i < 3; i++) {
     const value = ((hash >> (i * 8)) % 126) + 129
     color += ('00' + value.toString(16)).substr(-2)
   }
